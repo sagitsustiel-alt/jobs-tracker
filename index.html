@@ -213,6 +213,19 @@ textarea.form-input { height:72px; resize:vertical; }
 #select-all-banner span { font-weight:600; }
 #select-all-banner button { background:none; border:none; color:var(--accent); font-weight:700; cursor:pointer; font-size:13px; font-family:var(--sans); text-decoration:underline; margin-left:6px; }
 
+/* Language toggle */
+.lang-btn { background:var(--border2); border:none; color:var(--text); border-radius:20px; padding:5px 12px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--sans); margin-top:8px; width:100%; }
+.lang-btn:hover { background:var(--accent); }
+body.rtl { direction:rtl; }
+body.rtl .sidebar-bottom { flex-direction:row-reverse; }
+body.rtl .sync-dot { margin-left:0; margin-right:auto; }
+body.rtl thead th { text-align:right; }
+body.rtl .search-input { padding:9px 34px 9px 12px; }
+body.rtl .search-icon { left:auto; right:11px; }
+body.rtl .modal-actions { flex-direction:row-reverse; }
+body.rtl #select-all-banner button { margin-left:0; margin-right:6px; }
+@media(max-width:700px){ body.rtl .header { padding:20px 72px 0 16px; } }
+
 /* Toast */
 #toast { position:fixed; bottom:24px; right:24px; padding:12px 20px; border-radius:10px; font-size:13px; font-weight:500; z-index:200; box-shadow:0 4px 24px rgba(0,0,0,.4); opacity:0; transition:opacity .3s; pointer-events:none; }
 #toast.show { opacity:1; }
@@ -245,14 +258,15 @@ textarea.form-input { height:72px; resize:vertical; }
     <span class="logo-text">Jobs Tracker</span>
   </div>
   <nav class="nav">
-    <button class="nav-btn active" onclick="switchView('applications')" id="nav-applications">&#8801; Applications</button>
-    <button class="nav-btn" onclick="switchView('dashboard')" id="nav-dashboard">&#9707; Dashboard</button>
+    <button class="nav-btn active" onclick="switchView('applications')" id="nav-applications">&#8801; <span class="t" data-en="Applications" data-he="פניות">Applications</span></button>
+    <button class="nav-btn" onclick="switchView('dashboard')" id="nav-dashboard">&#9707; <span class="t" data-en="Dashboard" data-he="דשבורד">Dashboard</span></button>
   </nav>
   <div class="sidebar-bottom">
     <div class="avatar">SG</div>
-    <div><div class="avatar-name">Sagit</div><div class="avatar-role">Job Seeker</div></div>
+    <div><div class="avatar-name">Sagit</div><div class="avatar-role" id="role-label">Job Seeker</div></div>
     <div class="sync-dot syncing" id="sync-dot" title="Connecting..."></div>
   </div>
+  <button class="lang-btn" onclick="toggleLang()" id="lang-btn">🌐 עברית</button>
 </div>
 
 <div id="main">
@@ -261,20 +275,20 @@ textarea.form-input { height:72px; resize:vertical; }
       <div class="header-title" id="header-title">Applications</div>
       <div class="header-sub" id="header-sub">Connecting...</div>
     </div>
-    <button class="btn-add" id="add-btn" onclick="openAddModal()">+ Add Application</button>
+    <button class="btn-add" id="add-btn" onclick="openAddModal()">+ <span class="t" data-en="Add Application" data-he="הוסף פנייה">Add Application</span></button>
   </div>
 
   <div class="view" id="view-dashboard">
     <div class="stat-grid">
-      <div class="stat-card"><div class="stat-val" id="s-total">0</div><div class="stat-label">Total Applications</div><div class="stat-sub">All time</div></div>
-      <div class="stat-card"><div class="stat-val" id="s-relevant">0</div><div class="stat-label">Relevant</div><div class="stat-sub" id="s-relevant-pct">0% of total</div></div>
-      <div class="stat-card"><div class="stat-val" id="s-interviews">0</div><div class="stat-label">Interviews Scheduled</div><div class="stat-sub">Upcoming &amp; past</div></div>
-      <div class="stat-card"><div class="stat-val" id="s-rate">0%</div><div class="stat-label">Success Rate</div><div class="stat-sub">Interviews / Applications</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-total">0</div><div class="stat-label"><span class="t" data-en="Total Applications" data-he="סה״כ פניות">Total Applications</span></div><div class="stat-sub"><span class="t" data-en="All time" data-he="סך הכל">All time</span></div></div>
+      <div class="stat-card"><div class="stat-val" id="s-relevant">0</div><div class="stat-label"><span class="t" data-en="Relevant" data-he="רלוונטי">Relevant</span></div><div class="stat-sub" id="s-relevant-pct">0% of total</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-interviews">0</div><div class="stat-label"><span class="t" data-en="Interviews Scheduled" data-he="ראיונות מתוכננים">Interviews Scheduled</span></div><div class="stat-sub"><span class="t" data-en="Upcoming &amp; past" data-he="עתידיים ועבר">Upcoming &amp; past</span></div></div>
+      <div class="stat-card"><div class="stat-val" id="s-rate">0%</div><div class="stat-label"><span class="t" data-en="Success Rate" data-he="אחוז הצלחה">Success Rate</span></div><div class="stat-sub"><span class="t" data-en="Interviews / Applications" data-he="ראיונות / פניות">Interviews / Applications</span></div></div>
     </div>
     <div class="chart-grid">
-      <div class="chart-card"><div class="chart-title">Application Trends</div><div class="chart-canvas-wrap"><canvas id="chart-trend"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Relevance Breakdown</div><div class="chart-canvas-wrap"><canvas id="chart-pie"></canvas></div></div>
-      <div class="chart-card"><div class="chart-title">Top Companies</div><div class="chart-canvas-wrap"><canvas id="chart-bar"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title"><span class="t" data-en="Application Trends" data-he="מגמות פניות">Application Trends</span></div><div class="chart-canvas-wrap"><canvas id="chart-trend"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title"><span class="t" data-en="Relevance Breakdown" data-he="פילוח רלוונטיות">Relevance Breakdown</span></div><div class="chart-canvas-wrap"><canvas id="chart-pie"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title"><span class="t" data-en="Top Companies" data-he="חברות מובילות">Top Companies</span></div><div class="chart-canvas-wrap"><canvas id="chart-bar"></canvas></div></div>
     </div>
   </div>
 
@@ -285,11 +299,11 @@ textarea.form-input { height:72px; resize:vertical; }
         <input class="search-input" id="search-input" type="text" placeholder="Search company or role..." oninput="onSearch()" />
       </div>
       <div class="filter-tabs">
-        <button class="filter-tab active" data-filter="all" onclick="setFilter('all')">All <span class="filter-count" id="fc-all">0</span></button>
-        <button class="filter-tab" data-filter="yes" onclick="setFilter('yes')">Relevant <span class="filter-count" id="fc-yes">0</span></button>
-        <button class="filter-tab" data-filter="no" onclick="setFilter('no')">Not Relevant <span class="filter-count" id="fc-no">0</span></button>
+        <button class="filter-tab active" data-filter="all" onclick="setFilter('all')"><span class="t" data-en="All" data-he="הכל">All</span> <span class="filter-count" id="fc-all">0</span></button>
+        <button class="filter-tab" data-filter="yes" onclick="setFilter('yes')"><span class="t" data-en="Relevant" data-he="רלוונטי">Relevant</span> <span class="filter-count" id="fc-yes">0</span></button>
+        <button class="filter-tab" data-filter="no" onclick="setFilter('no')"><span class="t" data-en="Not Relevant" data-he="לא רלוונטי">Not Relevant</span> <span class="filter-count" id="fc-no">0</span></button>
       </div>
-      <button id="bulk-delete-btn" onclick="confirmBulkDelete()">Delete <span id="sel-count">0</span> selected</button>
+      <button id="bulk-delete-btn" onclick="confirmBulkDelete()"><span class="t" data-en="Delete" data-he="מחק">Delete</span> <span id="sel-count">0</span> <span class="t" data-en="selected" data-he="נבחרו">selected</span></button>
     </div>
     <div id="select-all-banner">
       <span id="banner-msg"></span>
@@ -300,12 +314,12 @@ textarea.form-input { height:72px; resize:vertical; }
         <thead>
           <tr>
             <th><input type="checkbox" id="select-all" onchange="toggleAll()" /></th>
-            <th onclick="toggleSort('date')">Date <span id="sort-date">&#8597;</span></th>
-            <th onclick="toggleSort('company')">Company <span id="sort-company">&#8597;</span></th>
-            <th onclick="toggleSort('role')">Role <span id="sort-role">&#8597;</span></th>
-            <th onclick="toggleSort('isRelevant')">Relevant <span id="sort-isRelevant">&#8597;</span></th>
-            <th onclick="toggleSort('interviewDate')">Interview <span id="sort-interviewDate">&#8597;</span></th>
-            <th>Actions</th>
+            <th onclick="toggleSort('date')"><span class="t" data-en="Date" data-he="תאריך">Date</span> <span id="sort-date">&#8597;</span></th>
+            <th onclick="toggleSort('company')"><span class="t" data-en="Company" data-he="חברה">Company</span> <span id="sort-company">&#8597;</span></th>
+            <th onclick="toggleSort('role')"><span class="t" data-en="Role" data-he="תפקיד">Role</span> <span id="sort-role">&#8597;</span></th>
+            <th onclick="toggleSort('isRelevant')"><span class="t" data-en="Relevant" data-he="רלוונטי">Relevant</span> <span id="sort-isRelevant">&#8597;</span></th>
+            <th onclick="toggleSort('interviewDate')"><span class="t" data-en="Interview" data-he="ראיון">Interview</span> <span id="sort-interviewDate">&#8597;</span></th>
+            <th><span class="t" data-en="Actions" data-he="פעולות">Actions</span></th>
           </tr>
         </thead>
         <tbody id="table-body"></tbody>
@@ -322,21 +336,21 @@ textarea.form-input { height:72px; resize:vertical; }
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-title" id="form-title">Add Application</div>
     <div class="form-grid">
-      <div class="form-field"><label>Date * (DD/MM/YYYY)</label><input class="form-input" type="text" id="f-date" placeholder="e.g. 17/03/2026" inputmode="numeric" /></div>
-      <div class="form-field"><label>Company *</label><input class="form-input" type="text" id="f-company" placeholder="e.g. Anthropic" /></div>
-      <div class="form-field"><label>Role *</label><input class="form-input" type="text" id="f-role" placeholder="e.g. Program Manager" /></div>
-      <div class="form-field"><label>Job Link</label><input class="form-input" type="url" id="f-link" placeholder="https://..." /></div>
-      <div class="form-field"><label>Relevant?</label>
+      <div class="form-field"><label><span class="t" data-en="Date * (DD/MM/YYYY)" data-he="תאריך * (DD/MM/YYYY)">Date * (DD/MM/YYYY)</span></label><input class="form-input" type="text" id="f-date" placeholder="e.g. 17/03/2026" inputmode="numeric" /></div>
+      <div class="form-field"><label><span class="t" data-en="Company *" data-he="חברה *">Company *</span></label><input class="form-input" type="text" id="f-company" placeholder="e.g. Anthropic" /></div>
+      <div class="form-field"><label><span class="t" data-en="Role *" data-he="תפקיד *">Role *</span></label><input class="form-input" type="text" id="f-role" placeholder="e.g. Program Manager" /></div>
+      <div class="form-field"><label><span class="t" data-en="Job Link" data-he="קישור למשרה">Job Link</span></label><input class="form-input" type="url" id="f-link" placeholder="https://..." /></div>
+      <div class="form-field"><label><span class="t" data-en="Relevant?" data-he="רלוונטי?">Relevant?</span></label>
         <select class="form-input" id="f-relevant">
-          <option value="yes">Yes - Relevant</option>
-          <option value="no">No - Not Relevant</option>
+          <option value="yes" class="t" data-en="Yes - Relevant" data-he="כן - רלוונטי">Yes - Relevant</option>
+          <option value="no" class="t" data-en="No - Not Relevant" data-he="לא - לא רלוונטי">No - Not Relevant</option>
         </select>
       </div>
-      <div class="form-field"><label>Interview Date (DD/MM/YYYY HH:MM)</label><input class="form-input" type="text" id="f-interview" placeholder="e.g. 20/03/2026 10:00" inputmode="numeric" /></div>
-      <div class="form-field full"><label>Notes</label><textarea class="form-input" id="f-notes" placeholder="Interview feedback, follow-up..."></textarea></div>
+      <div class="form-field"><label><span class="t" data-en="Interview Date (DD/MM/YYYY HH:MM)" data-he="תאריך ראיון (DD/MM/YYYY HH:MM)">Interview Date (DD/MM/YYYY HH:MM)</span></label><input class="form-input" type="text" id="f-interview" placeholder="e.g. 20/03/2026 10:00" inputmode="numeric" /></div>
+      <div class="form-field full"><label><span class="t" data-en="Notes" data-he="הערות">Notes</span></label><textarea class="form-input" id="f-notes" placeholder="Interview feedback, follow-up..."></textarea></div>
     </div>
     <div class="modal-actions">
-      <button class="btn-cancel" onclick="closeFormModal()">Cancel</button>
+      <button class="btn-cancel" onclick="closeFormModal()"><span class="t" data-en="Cancel" data-he="ביטול">Cancel</span></button>
       <button class="btn-submit" onclick="submitForm()" id="form-submit-btn">Add Application</button>
     </div>
   </div>
@@ -428,8 +442,8 @@ function switchView(v){
   document.querySelectorAll(".nav-btn").forEach(function(el){el.classList.remove("active");});
   document.getElementById("view-"+v).classList.add("active");
   document.getElementById("nav-"+v).classList.add("active");
-  document.getElementById("header-title").textContent=v==="dashboard"?"Dashboard":"Applications";
-  document.getElementById("header-sub").textContent=v==="dashboard"?"Your job search at a glance":apps.length+" total applications tracked";
+  document.getElementById("header-title").textContent = v==="dashboard" ? (currentLang==="he"?"דשבורד":"Dashboard") : (currentLang==="he"?"פניות":"Applications");
+  document.getElementById("header-sub").textContent = v==="dashboard" ? (currentLang==="he"?"סקירת החיפוש שלך":"Your job search at a glance") : apps.length+(currentLang==="he"?" פניות מעוקבות סה״כ":" total applications tracked");
   document.getElementById("add-btn").style.display    = v === "applications" ? "inline-block" : "none";
   if(v==="dashboard"){renderStats();renderCharts();}
   if(v==="applications") renderTable();
@@ -495,15 +509,16 @@ function renderTable(){
   var pageData=filtered.slice((currentPage-1)*PER_PAGE,currentPage*PER_PAGE);
   document.getElementById("select-all").checked=pageData.length>0&&pageData.every(function(a){return selected.has(a._id);});
   var tbody=document.getElementById("table-body");
-  if(filtered.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="7">No applications found. Add your first application!</td></tr>';}
+  if(filtered.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="7">'+(currentLang==="he"?"לא נמצאו פניות. הוסיפי את הפנייה הראשונה!":"No applications found. Add your first application!")+'</td></tr>';}
   else{
     tbody.innerHTML=pageData.map(function(app){
+      var relText = app.isRelevant==="yes" ? (currentLang==="he"?"כן":"Yes") : (currentLang==="he"?"לא":"No");
       return '<tr class="'+(app.isRelevant==="no"?"muted ":"")+(selected.has(app._id)?"selected":"")+'">'+
         '<td><input type="checkbox"'+(selected.has(app._id)?' checked':'')+' onchange="toggleOne(\''+app._id+'\')" /></td>'+
         '<td>'+fmtDate(app.date)+'</td>'+
         '<td class="bold">'+escHtml(app.company)+'</td>'+
         '<td>'+escHtml(app.role)+'</td>'+
-        '<td><span class="badge '+(app.isRelevant==="yes"?"badge-yes":"badge-no")+'">'+(app.isRelevant==="yes"?"Yes":"No")+'</span></td>'+
+        '<td><span class="badge '+(app.isRelevant==="yes"?"badge-yes":"badge-no")+'">'+relText+'</span></td>'+
         '<td>'+fmtDT(app.interviewDate)+'</td>'+
         '<td><button class="action-btn" onclick="openEditModal(\''+app._id+'\')" title="Edit">&#9998;</button>'+
         '<button class="action-btn del" onclick="confirmDelete([\''+app._id+'\'])" title="Delete">&#10005;</button></td>'+
@@ -518,7 +533,7 @@ function renderTable(){
   document.getElementById("bulk-delete-btn").style.display=selected.size>0?"block":"none";
   document.getElementById("sel-count").textContent=selected.size;
   updateFilterCounts();
-  document.getElementById("header-sub").textContent=apps.length+" total applications tracked";
+  document.getElementById("header-sub").textContent=apps.length+(currentLang==="he"?" פניות מעוקבות סה״כ":" total applications tracked");
   updateBanner();
 }
 function goPage(p){currentPage=p;renderTable();}
@@ -548,6 +563,25 @@ function updateBanner(){
   }else{banner.style.display="none";if(!allOnPage)allRowsSelected=false;}
 }
 
+// ── Language ───────────────────────────────────────────────────────────────
+var currentLang = "en";
+function toggleLang(){
+  currentLang = currentLang==="en" ? "he" : "en";
+  var isHe = currentLang==="he";
+  document.body.classList.toggle("rtl", isHe);
+  document.getElementById("lang-btn").textContent = isHe ? "🌐 English" : "🌐 עברית";
+  document.getElementById("role-label").textContent = isHe ? "מחפשת עבודה" : "Job Seeker";
+  // Update search placeholder
+  document.getElementById("search-input").placeholder = isHe ? "חפש חברה או תפקיד..." : "Search company or role...";
+  // Update all .t spans
+  document.querySelectorAll(".t").forEach(function(el){
+    var val = el.getAttribute("data-"+currentLang);
+    if(val) el.textContent = val;
+  });
+  // Update dynamic texts
+  renderAll();
+}
+
 // ── Date helpers ───────────────────────────────────────────────────────────
 // stored as YYYY-MM-DD, displayed/entered as DD/MM/YYYY
 function toDisplay(iso){ // "2026-03-17" → "17/03/2026"
@@ -575,8 +609,8 @@ function toISODT(display){ // "17/03/2026 10:00" → "2026-03-17T10:00"
 
 function openAddModal(){
   editingId=null;
-  document.getElementById("form-title").textContent="Add Application";
-  document.getElementById("form-submit-btn").textContent="Add Application";
+  document.getElementById("form-title").textContent = currentLang==="he" ? "הוסף פנייה" : "Add Application";
+  document.getElementById("form-submit-btn").textContent = currentLang==="he" ? "הוסף פנייה" : "Add Application";
   // Pre-fill today's date
   var today=new Date();
   var dd=String(today.getDate()).padStart(2,"0");
@@ -595,8 +629,8 @@ function openEditModal(id){
   var app=apps.find(function(a){return a._id===id;});
   if(!app) return;
   editingId=id;
-  document.getElementById("form-title").textContent="Edit Application";
-  document.getElementById("form-submit-btn").textContent="Save Changes";
+  document.getElementById("form-title").textContent = currentLang==="he" ? "ערוך פנייה" : "Edit Application";
+  document.getElementById("form-submit-btn").textContent = currentLang==="he" ? "שמור שינויים" : "Save Changes";
   document.getElementById("f-date").value=toDisplay(app.date)||"";
   document.getElementById("f-company").value=app.company||"";
   document.getElementById("f-role").value=app.role||"";
