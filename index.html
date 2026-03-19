@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jobs Tracker</title>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Jobs Tracker" />
+<meta name="application-name" content="Jobs Tracker" />
+<link rel="apple-touch-icon" href="data:image/png;base64,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" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC0WUQQBtZKKfXw2R9Hh1MEc1rAjDotajM",
+  authDomain: "jobtrack-50327.firebaseapp.com",
+  projectId: "jobtrack-50327",
+  storageBucket: "jobtrack-50327.firebasestorage.app",
+  messagingSenderId: "550753536181",
+  appId: "1:550753536181:web:aa93df9a539dbc960656fc"
+};
+
+const fbApp  = initializeApp(firebaseConfig);
+const db     = getFirestore(fbApp);
+const colRef = collection(db, "applications");
+
+window._db          = db;
+window._colRef      = colRef;
+window._fsDoc       = doc;
+window._fsDocs      = getDocs;
+window._fsAdd       = addDoc;
+window._fsUpdate    = updateDoc;
+window._fsDelete    = deleteDoc;
+window._fsOnSnapshot = onSnapshot;
+window._firebaseReady = true;
+document.dispatchEvent(new Event("firebase-ready"));
+</script>
+<style>
+:root {
+  --bg:      #0d1117;
+  --surface: #111827;
+  --border:  #1e2638;
+  --border2: #2d3347;
+  --text:    #e2e8f0;
+  --muted:   #8892a4;
+  --accent:  #4F6EF7;
+  --accent2: #7c9af8;
+  --danger:  #dc2626;
+  --mono:    'Space Mono', monospace;
+  --sans:    'DM Sans', sans-serif;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--bg); color:var(--text); font-family:var(--sans); height:100vh; overflow:hidden; display:flex; }
+
+/* Loading */
+#loading-screen { position:fixed; inset:0; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:999; gap:16px; }
+.loading-logo { font-family:var(--mono); font-size:28px; color:#fff; }
+.loading-logo span { color:var(--accent); }
+.loading-spinner { width:32px; height:32px; border:3px solid var(--border2); border-top-color:var(--accent); border-radius:50%; animation:spin .8s linear infinite; }
+.loading-msg { font-size:13px; color:var(--muted); }
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* Sidebar */
+#sidebar { width:220px; flex-shrink:0; background:var(--surface); border-right:1px solid var(--border); display:flex; flex-direction:column; padding:24px 14px; transition:transform .25s; }
+#sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:49; }
+.hamburger { display:none; position:fixed; top:16px; left:16px; z-index:51; background:var(--surface); border:1px solid var(--border2); border-radius:8px; width:38px; height:38px; cursor:pointer; font-size:18px; color:var(--text); align-items:center; justify-content:center; }
+@media(max-width:700px){
+  #sidebar { position:fixed; top:0; left:0; height:100vh; z-index:50; transform:translateX(-100%); }
+  #sidebar.open { transform:translateX(0); }
+  #sidebar-overlay.open { display:block; }
+  .hamburger { display:flex; width:48px; height:48px; font-size:24px; }
+  .header { padding:20px 16px 0 72px; }
+  .header-title { font-size:24px; }
+  .header-sub { font-size:16px; }
+  .view { padding:12px; }
+  .stat-grid { grid-template-columns:repeat(2,1fr); }
+  .stat-val { font-size:28px; }
+  .stat-label { font-size:16px; }
+  .stat-sub { font-size:14px; }
+  .chart-grid { grid-template-columns:1fr; }
+  .form-grid { grid-template-columns:1fr; }
+  /* Table */
+  table { font-size:18px; }
+  thead th { font-size:15px; padding:14px 10px; }
+  tbody td { font-size:18px; padding:16px 10px; }
+  .badge { font-size:15px; padding:4px 12px; }
+  .action-btn { width:42px; height:42px; font-size:20px; }
+  input[type=checkbox] { width:22px; height:22px; }
+  /* Toolbar */
+  .search-input { font-size:18px; padding:13px 12px 13px 40px; }
+  .filter-tab { font-size:16px; padding:12px 16px; }
+  .filter-count { font-size:14px; }
+  #bulk-delete-btn { font-size:16px; padding:13px 18px; }
+  .btn-add { font-size:16px; padding:13px 18px; }
+  /* Pagination */
+  .pagination-info { font-size:15px; }
+  .page-btn { width:42px; height:42px; font-size:17px; }
+  /* Modal */
+  .modal-title { font-size:22px; }
+  label { font-size:15px; }
+  .form-input { font-size:18px; padding:14px 16px; }
+  .btn-cancel, .btn-submit, .btn-delete { font-size:17px; padding:14px 24px; }
+  .delete-msg { font-size:17px; }
+  /* Nav */
+  .nav-btn { font-size:20px; padding:16px 14px; }
+  .avatar-name { font-size:18px; }
+  .avatar-role { font-size:15px; }
+  /* Banner */
+  #select-all-banner { font-size:16px; }
+}
+.logo { display:flex; align-items:center; gap:10px; padding-left:8px; margin-bottom:36px; }
+.logo-icon { font-size:22px; color:var(--accent); }
+.logo-text { font-family:var(--mono); font-weight:700; font-size:18px; color:#fff; letter-spacing:-0.5px; }
+.nav { display:flex; flex-direction:column; gap:4px; flex:1; }
+.nav-btn { background:none; border:none; color:var(--muted); font-size:13px; font-weight:500; padding:10px 12px; border-radius:8px; cursor:pointer; text-align:left; font-family:var(--sans); transition:all .15s; }
+.nav-btn:hover { background:#1a2236; color:var(--text); }
+.nav-btn.active { background:#1a2236; color:var(--accent); }
+.sidebar-bottom { display:flex; align-items:center; gap:10px; padding-top:16px; border-top:1px solid var(--border); }
+.avatar { width:34px; height:34px; border-radius:50%; background:var(--accent); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+.avatar-name { font-size:13px; font-weight:600; color:var(--text); }
+.avatar-role { font-size:11px; color:var(--muted); }
+.sync-dot { width:8px; height:8px; border-radius:50%; background:#22c55e; margin-left:auto; flex-shrink:0; transition:background .3s; }
+.sync-dot.syncing { background:#f59e0b; animation:pulse 1s infinite; }
+.sync-dot.error { background:var(--danger); }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+
+/* Main */
+#main { flex:1; overflow:auto; display:flex; flex-direction:column; min-width:0; }
+.header { display:flex; align-items:center; justify-content:space-between; padding:28px 32px 0; flex-shrink:0; }
+.header-title { font-family:var(--mono); font-size:22px; font-weight:700; color:#fff; letter-spacing:-0.5px; }
+.header-sub { font-size:13px; color:var(--muted); margin-top:3px; }
+.btn-add { background:var(--accent); color:#fff; border:none; border-radius:8px; padding:10px 18px; font-size:13px; font-weight:600; cursor:pointer; font-family:var(--sans); }
+.btn-add:hover { background:#3d5ce0; }
+
+/* Views */
+.view { display:none; padding:28px 32px; flex:1; }
+.view.active { display:flex; flex-direction:column; gap:16px; }
+
+/* Dashboard */
+.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.stat-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 22px; }
+.stat-val { font-family:var(--mono); font-size:28px; font-weight:700; color:var(--accent); }
+.stat-label { font-size:13px; font-weight:600; color:var(--text); margin-top:6px; }
+.stat-sub { font-size:11px; color:var(--muted); margin-top:3px; }
+.chart-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:14px; }
+.chart-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 22px; }
+.chart-title { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:14px; }
+.chart-canvas-wrap { position:relative; height:170px; }
+
+/* Applications */
+.toolbar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; flex-shrink:0; }
+.search-wrap { position:relative; flex:1 1 200px; min-width:160px; }
+.search-icon { position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+.search-input { width:100%; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:9px 12px 9px 34px; color:var(--text); font-size:13px; font-family:var(--sans); outline:none; }
+.search-input:focus { border-color:var(--accent); }
+.filter-tabs { display:flex; background:var(--surface); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.filter-tab { background:none; border:none; color:var(--muted); padding:8px 13px; font-size:12px; font-weight:500; cursor:pointer; font-family:var(--sans); display:flex; align-items:center; gap:5px; }
+.filter-tab.active { background:var(--accent); color:#fff; }
+.filter-count { background:rgba(255,255,255,.15); border-radius:10px; padding:1px 6px; font-size:10px; }
+#bulk-delete-btn { background:var(--danger); color:#fff; border:none; border-radius:8px; padding:9px 14px; font-size:12px; font-weight:600; cursor:pointer; font-family:var(--sans); display:none; }
+.table-wrap { flex:1; overflow:auto; background:var(--surface); border:1px solid var(--border); border-radius:12px; min-height:0; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { position:sticky; top:0; background:var(--surface); padding:12px 14px; text-align:left; color:var(--muted); font-weight:600; font-size:11px; letter-spacing:.05em; text-transform:uppercase; border-bottom:1px solid var(--border); white-space:nowrap; cursor:pointer; user-select:none; }
+thead th:first-child, thead th:last-child { cursor:default; }
+tbody tr { border-bottom:1px solid #141a26; transition:background .1s; }
+tbody tr:hover { background:rgba(255,255,255,.02); }
+tbody tr.muted { opacity:.6; }
+tbody tr.selected { background:rgba(79,110,247,.07); }
+tbody td { padding:11px 14px; color:#c9d1e0; vertical-align:middle; white-space:nowrap; }
+tbody td.bold { font-weight:600; color:var(--text); }
+.badge { display:inline-block; padding:2px 10px; border-radius:20px; font-size:11px; font-weight:600; }
+.badge-yes { background:rgba(79,110,247,.15); color:var(--accent2); }
+.badge-no  { background:rgba(100,116,139,.15); color:#94a3b8; }
+.action-btn { background:none; border:1px solid var(--border2); border-radius:6px; color:var(--muted); width:28px; height:28px; cursor:pointer; font-size:13px; margin-right:4px; }
+.action-btn:hover { background:#1a2236; }
+.action-btn.del { border-color:rgba(220,38,38,.3); color:var(--danger); }
+.empty-row td { padding:48px; text-align:center; color:var(--muted); }
+input[type=checkbox] { accent-color:var(--accent); cursor:pointer; width:14px; height:14px; }
+
+/* Pagination */
+.pagination-row { display:flex; align-items:center; justify-content:space-between; flex-shrink:0; }
+.pagination-info { font-size:12px; color:var(--muted); }
+.pagination-btns { display:flex; gap:4px; }
+.page-btn { background:var(--surface); border:1px solid var(--border); color:var(--muted); border-radius:6px; width:30px; height:30px; cursor:pointer; font-size:12px; font-family:var(--sans); }
+.page-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+.page-btn:disabled { opacity:.4; cursor:not-allowed; }
+
+/* Overlay / Modal */
+.overlay { position:fixed; inset:0; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; z-index:100; padding:24px; }
+.overlay.hidden { display:none; }
+.modal { background:var(--surface); border:1px solid var(--border2); border-radius:16px; padding:28px; width:100%; max-width:560px; max-height:85vh; overflow-y:auto; }
+.modal-sm { max-width:400px; }
+.modal-title { font-family:var(--mono); font-size:17px; font-weight:700; color:#fff; margin-bottom:20px; }
+.form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px 16px; margin-bottom:20px; }
+.form-field { display:flex; flex-direction:column; gap:5px; }
+.form-field.full { grid-column:1/-1; }
+label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; }
+.form-input { background:var(--bg); border:1px solid var(--border2); border-radius:8px; padding:9px 12px; color:var(--text); font-size:13px; font-family:var(--sans); outline:none; width:100%; }
+.form-input:focus { border-color:var(--accent); }
+textarea.form-input { height:72px; resize:vertical; }
+.modal-actions { display:flex; justify-content:flex-end; gap:10px; }
+.btn-cancel { background:none; border:1px solid var(--border2); color:var(--muted); padding:9px 18px; border-radius:8px; cursor:pointer; font-size:13px; font-family:var(--sans); }
+.btn-submit { background:var(--accent); color:#fff; border:none; padding:9px 18px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600; font-family:var(--sans); }
+.btn-delete { background:var(--danger); color:#fff; border:none; padding:9px 18px; border-radius:8px; cursor:pointer; font-size:13px; font-weight:600; font-family:var(--sans); }
+.delete-msg { color:#c9d1e0; font-size:14px; line-height:1.6; margin-bottom:24px; }
+
+/* Select-all banner */
+#select-all-banner { display:none; background:rgba(79,110,247,.12); border:1px solid rgba(79,110,247,.3); border-radius:8px; padding:9px 16px; font-size:13px; color:var(--accent2); text-align:center; flex-shrink:0; }
+#select-all-banner span { font-weight:600; }
+#select-all-banner button { background:none; border:none; color:var(--accent); font-weight:700; cursor:pointer; font-size:13px; font-family:var(--sans); text-decoration:underline; margin-left:6px; }
+
+/* Toast */
+#toast { position:fixed; bottom:24px; right:24px; padding:12px 20px; border-radius:10px; font-size:13px; font-weight:500; z-index:200; box-shadow:0 4px 24px rgba(0,0,0,.4); opacity:0; transition:opacity .3s; pointer-events:none; }
+#toast.show { opacity:1; }
+#toast.success { background:#1e3a2f; border:1px solid #166534; color:#86efac; }
+#toast.error   { background:#3b1111; border:1px solid #7f1d1d; color:#fca5a5; }
+
+::-webkit-scrollbar { width:6px; height:6px; }
+::-webkit-scrollbar-track { background:var(--surface); }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<div id="loading-screen">
+  <div class="loading-logo">Jobs<span> Tracker</span></div>
+  <div class="loading-spinner"></div>
+  <div class="loading-msg">Connecting to cloud...</div>
+</div>
+
+<button class="hamburger" onclick="toggleSidebar()" id="hamburger-btn">&#9776;</button>
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<div id="sidebar">
+  <div class="logo">
+    <svg width="28" height="28" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,10 168,85 100,112 32,85" fill="#6366f1"/>
+      <polygon points="100,112 168,85 100,188" fill="#4338ca"/>
+      <polygon points="100,112 32,85 100,188" fill="#8b5cf6"/>
+    </svg>
+    <span class="logo-text">Jobs Tracker</span>
+  </div>
+  <nav class="nav">
+    <button class="nav-btn active" onclick="switchView('applications')" id="nav-applications">&#8801; Applications</button>
+    <button class="nav-btn" onclick="switchView('dashboard')" id="nav-dashboard">&#9707; Dashboard</button>
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="avatar">SG</div>
+    <div><div class="avatar-name">Sagit</div><div class="avatar-role">Job Seeker</div></div>
+    <div class="sync-dot syncing" id="sync-dot" title="Connecting..."></div>
+  </div>
+</div>
+
+<div id="main">
+  <div class="header">
+    <div>
+      <div class="header-title" id="header-title">Applications</div>
+      <div class="header-sub" id="header-sub">Connecting...</div>
+    </div>
+    <button class="btn-add" id="add-btn" onclick="openAddModal()">+ Add Application</button>
+  </div>
+
+  <div class="view" id="view-dashboard">
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-val" id="s-total">0</div><div class="stat-label">Total Applications</div><div class="stat-sub">All time</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-relevant">0</div><div class="stat-label">Relevant</div><div class="stat-sub" id="s-relevant-pct">0% of total</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-interviews">0</div><div class="stat-label">Interviews Scheduled</div><div class="stat-sub">Upcoming &amp; past</div></div>
+      <div class="stat-card"><div class="stat-val" id="s-rate">0%</div><div class="stat-label">Success Rate</div><div class="stat-sub">Interviews / Applications</div></div>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card"><div class="chart-title">Application Trends</div><div class="chart-canvas-wrap"><canvas id="chart-trend"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Relevance Breakdown</div><div class="chart-canvas-wrap"><canvas id="chart-pie"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">Top Companies</div><div class="chart-canvas-wrap"><canvas id="chart-bar"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="view active" id="view-applications">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="search-icon">&#128269;</span>
+        <input class="search-input" id="search-input" type="text" placeholder="Search company or role..." oninput="onSearch()" />
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all" onclick="setFilter('all')">All <span class="filter-count" id="fc-all">0</span></button>
+        <button class="filter-tab" data-filter="yes" onclick="setFilter('yes')">Relevant <span class="filter-count" id="fc-yes">0</span></button>
+        <button class="filter-tab" data-filter="no" onclick="setFilter('no')">Not Relevant <span class="filter-count" id="fc-no">0</span></button>
+      </div>
+      <button id="bulk-delete-btn" onclick="confirmBulkDelete()">Delete <span id="sel-count">0</span> selected</button>
+    </div>
+    <div id="select-all-banner">
+      <span id="banner-msg"></span>
+      <button id="banner-btn" onclick="toggleSelectAllRows()"></button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="select-all" onchange="toggleAll()" /></th>
+            <th onclick="toggleSort('date')">Date <span id="sort-date">&#8597;</span></th>
+            <th onclick="toggleSort('company')">Company <span id="sort-company">&#8597;</span></th>
+            <th onclick="toggleSort('role')">Role <span id="sort-role">&#8597;</span></th>
+            <th onclick="toggleSort('isRelevant')">Relevant <span id="sort-isRelevant">&#8597;</span></th>
+            <th onclick="toggleSort('interviewDate')">Interview <span id="sort-interviewDate">&#8597;</span></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <div class="pagination-row">
+      <span class="pagination-info" id="pagination-info"></span>
+      <div class="pagination-btns" id="pagination-btns"></div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay hidden" id="form-overlay" onclick="closeFormModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title" id="form-title">Add Application</div>
+    <div class="form-grid">
+      <div class="form-field"><label>Date * (DD/MM/YYYY)</label><input class="form-input" type="text" id="f-date" placeholder="e.g. 17/03/2026" inputmode="numeric" /></div>
+      <div class="form-field"><label>Company *</label><input class="form-input" type="text" id="f-company" placeholder="e.g. Anthropic" /></div>
+      <div class="form-field"><label>Role *</label><input class="form-input" type="text" id="f-role" placeholder="e.g. Program Manager" /></div>
+      <div class="form-field"><label>Job Link</label><input class="form-input" type="url" id="f-link" placeholder="https://..." /></div>
+      <div class="form-field"><label>Relevant?</label>
+        <select class="form-input" id="f-relevant">
+          <option value="yes">Yes - Relevant</option>
+          <option value="no">No - Not Relevant</option>
+        </select>
+      </div>
+      <div class="form-field"><label>Interview Date (DD/MM/YYYY HH:MM)</label><input class="form-input" type="text" id="f-interview" placeholder="e.g. 20/03/2026 10:00" inputmode="numeric" /></div>
+      <div class="form-field full"><label>Notes</label><textarea class="form-input" id="f-notes" placeholder="Interview feedback, follow-up..."></textarea></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeFormModal()">Cancel</button>
+      <button class="btn-submit" onclick="submitForm()" id="form-submit-btn">Add Application</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay hidden" id="del-overlay" onclick="closeDelModal(event)">
+  <div class="modal modal-sm" onclick="event.stopPropagation()">
+    <div class="modal-title">Delete Application(s)</div>
+    <p class="delete-msg" id="del-msg">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeDelModal()">Cancel</button>
+      <button class="btn-delete" onclick="doDelete()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+var apps=[], currentView="applications", searchQuery="", activeFilter="all";
+var sortCol="date", sortDir="desc", selected=new Set(), currentPage=1;
+var PER_PAGE=20, editingId=null, deleteIds=[], charts={}, allRowsSelected=false;
+
+document.addEventListener("firebase-ready", initApp);
+if(window._firebaseReady) initApp();
+
+async function initApp(){
+  setSyncStatus("syncing");
+  try{
+    var snap = await window._fsDocs(window._colRef);
+    apps = snap.docs.map(function(d){ return Object.assign({_id:d.id},d.data()); });
+    if(apps.length===0) await seedDemoData();
+    window._fsOnSnapshot(window._colRef, function(snap){
+      apps = snap.docs.map(function(d){ return Object.assign({_id:d.id},d.data()); });
+      renderAll();
+      setSyncStatus("ok");
+    });
+    document.getElementById("loading-screen").style.display="none";
+    document.getElementById("header-sub").textContent = apps.length+" total applications tracked";
+    setSyncStatus("ok");
+    renderAll();
+  }catch(e){
+    console.error(e);
+    setSyncStatus("error");
+    document.getElementById("loading-screen").style.display="none";
+    showToast("Connection error: "+e.message,"error");
+  }
+}
+
+function setSyncStatus(s){
+  var d=document.getElementById("sync-dot");
+  d.className="sync-dot"+(s==="syncing"?" syncing":s==="error"?" error":"");
+  d.title=s==="ok"?"Connected to cloud":s==="syncing"?"Syncing...":"Connection error";
+}
+
+async function seedDemoData(){
+  var demo=[
+    {date:"2026-02-03",company:"Stripe",role:"Program Manager, AI",link:"https://stripe.com",notes:"Great culture fit",isRelevant:"yes",interviewDate:"2026-02-18T10:00"},
+    {date:"2026-02-05",company:"Notion",role:"Technical Program Manager",link:"https://notion.so",notes:"Applied via referral",isRelevant:"yes",interviewDate:"2026-02-20T14:00"},
+    {date:"2026-02-07",company:"Acme Corp",role:"Project Coordinator",link:"",notes:"Stretch role",isRelevant:"no",interviewDate:""},
+    {date:"2026-02-10",company:"OpenAI",role:"AI Program Manager",link:"https://openai.com",notes:"Dream job",isRelevant:"yes",interviewDate:"2026-02-25T11:00"},
+    {date:"2026-02-12",company:"Linear",role:"Product Operations Manager",link:"https://linear.app",notes:"Fast-growing startup",isRelevant:"yes",interviewDate:""},
+    {date:"2026-02-14",company:"Retool",role:"Solutions Engineer",link:"",notes:"Not a good match",isRelevant:"no",interviewDate:""},
+    {date:"2026-02-17",company:"Anthropic",role:"AI Program Manager",link:"https://anthropic.com",notes:"Applied through website",isRelevant:"yes",interviewDate:"2026-03-01T09:00"},
+    {date:"2026-02-20",company:"Vercel",role:"Technical Program Manager",link:"https://vercel.com",notes:"Strong engineering culture",isRelevant:"yes",interviewDate:""},
+    {date:"2026-02-24",company:"Figma",role:"Program Manager",link:"https://figma.com",notes:"Design-forward company",isRelevant:"yes",interviewDate:"2026-03-05T13:00"},
+    {date:"2026-02-27",company:"Bland AI",role:"Operations Manager",link:"",notes:"Early stage, risky",isRelevant:"no",interviewDate:""},
+    {date:"2026-03-02",company:"Rippling",role:"AI Program Manager",link:"https://rippling.com",notes:"Great comp package",isRelevant:"yes",interviewDate:"2026-03-10T10:00"},
+    {date:"2026-03-05",company:"Scale AI",role:"Technical Program Manager",link:"https://scale.com",notes:"AI-first company",isRelevant:"yes",interviewDate:""}
+  ];
+  for(var i=0;i<demo.length;i++) await window._fsAdd(window._colRef,demo[i]);
+}
+
+function renderAll(){ renderStats(); renderCharts(); renderTable(); updateFilterCounts(); }
+
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("sidebar-overlay").classList.toggle("open");
+}
+function closeSidebar(){
+  document.getElementById("sidebar").classList.remove("open");
+  document.getElementById("sidebar-overlay").classList.remove("open");
+}
+
+function switchView(v){
+  closeSidebar();
+  currentView=v;
+  document.querySelectorAll(".view").forEach(function(el){el.classList.remove("active");});
+  document.querySelectorAll(".nav-btn").forEach(function(el){el.classList.remove("active");});
+  document.getElementById("view-"+v).classList.add("active");
+  document.getElementById("nav-"+v).classList.add("active");
+  document.getElementById("header-title").textContent=v==="dashboard"?"Dashboard":"Applications";
+  document.getElementById("header-sub").textContent=v==="dashboard"?"Your job search at a glance":apps.length+" total applications tracked";
+  document.getElementById("add-btn").style.display    = v === "applications" ? "inline-block" : "none";
+  if(v==="dashboard"){renderStats();renderCharts();}
+  if(v==="applications") renderTable();
+}
+
+function renderStats(){
+  var total=apps.length, relevant=apps.filter(function(a){return a.isRelevant==="yes";}).length;
+  var interviews=apps.filter(function(a){return a.interviewDate;}).length;
+  document.getElementById("s-total").textContent=total;
+  document.getElementById("s-relevant").textContent=relevant;
+  document.getElementById("s-relevant-pct").textContent=(total?Math.round(relevant/total*100):0)+"% of total";
+  document.getElementById("s-interviews").textContent=interviews;
+  document.getElementById("s-rate").textContent=(total?Math.round(interviews/total*100):0)+"%";
+}
+
+var CD={color:"#8892a4",grid:"rgba(255,255,255,0.05)"};
+function destroyChart(id){if(charts[id]){charts[id].destroy();delete charts[id];}}
+
+function renderCharts(){
+  var trendMap={};
+  apps.forEach(function(a){var m=(a.date||"").slice(0,7);if(m)trendMap[m]=(trendMap[m]||0)+1;});
+  var tL=Object.keys(trendMap).sort();
+  destroyChart("trend");
+  charts["trend"]=new Chart(document.getElementById("chart-trend"),{type:"line",data:{labels:tL,datasets:[{data:tL.map(function(k){return trendMap[k];}),borderColor:"#4F6EF7",backgroundColor:"rgba(79,110,247,.1)",borderWidth:2.5,tension:0.4,pointRadius:3,fill:true}]},options:{plugins:{legend:{display:false}},scales:{x:{ticks:{color:CD.color,font:{size:10}},grid:{color:CD.grid}},y:{ticks:{color:CD.color,font:{size:10}},grid:{color:CD.grid}}},animation:{duration:600}}});
+  var y=apps.filter(function(a){return a.isRelevant==="yes";}).length;
+  destroyChart("pie");
+  charts["pie"]=new Chart(document.getElementById("chart-pie"),{type:"doughnut",data:{labels:["Relevant","Not Relevant"],datasets:[{data:[y,apps.length-y],backgroundColor:["#4F6EF7","#2d3347"],borderWidth:0}]},options:{plugins:{legend:{labels:{color:CD.color,font:{size:11}}}},animation:{duration:600},cutout:"55%"}});
+  var cMap={};
+  apps.forEach(function(a){cMap[a.company]=(cMap[a.company]||0)+1;});
+  var s=Object.entries(cMap).sort(function(a,b){return b[1]-a[1];}).slice(0,6);
+  destroyChart("bar");
+  charts["bar"]=new Chart(document.getElementById("chart-bar"),{type:"bar",data:{labels:s.map(function(e){return e[0];}),datasets:[{data:s.map(function(e){return e[1];}),backgroundColor:"#4F6EF7",borderRadius:4}]},options:{indexAxis:"y",plugins:{legend:{display:false}},scales:{x:{ticks:{color:CD.color,font:{size:10}},grid:{color:CD.grid}},y:{ticks:{color:CD.color,font:{size:10}},grid:{display:false}}},animation:{duration:600}}});
+}
+
+function onSearch(){searchQuery=document.getElementById("search-input").value;currentPage=1;renderTable();}
+function setFilter(f){activeFilter=f;document.querySelectorAll(".filter-tab").forEach(function(b){b.classList.toggle("active",b.dataset.filter===f);});currentPage=1;renderTable();}
+function updateFilterCounts(){
+  document.getElementById("fc-all").textContent=apps.length;
+  document.getElementById("fc-yes").textContent=apps.filter(function(a){return a.isRelevant==="yes";}).length;
+  document.getElementById("fc-no").textContent=apps.filter(function(a){return a.isRelevant==="no";}).length;
+}
+function getFiltered(){
+  var r=apps;
+  if(activeFilter!=="all") r=r.filter(function(a){return a.isRelevant===activeFilter;});
+  if(searchQuery.trim()){var q=searchQuery.toLowerCase();r=r.filter(function(a){return(a.company||"").toLowerCase().includes(q)||(a.role||"").toLowerCase().includes(q);});}
+  return r.slice().sort(function(a,b){var va=a[sortCol]||"",vb=b[sortCol]||"";return sortDir==="asc"?va.localeCompare(vb):vb.localeCompare(va);});
+}
+function toggleSort(col){
+  if(sortCol===col) sortDir=sortDir==="asc"?"desc":"asc"; else{sortCol=col;sortDir="asc";}
+  document.querySelectorAll("thead th span[id^=sort-]").forEach(function(s){s.innerHTML="&#8597;";});
+  var el=document.getElementById("sort-"+col);
+  if(el) el.innerHTML=sortDir==="asc"?"&#8593;":"&#8595;";
+  currentPage=1;renderTable();
+}
+
+function fmtDate(s){if(!s)return"—";var d=new Date(s+(s.length===10?"T00:00:00":""));return d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});}
+function fmtDT(s){if(!s)return"—";var d=new Date(s);return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" "+d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});}
+function escHtml(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+function renderTable(){
+  var filtered=getFiltered(), totalPages=Math.max(1,Math.ceil(filtered.length/PER_PAGE));
+  if(currentPage>totalPages) currentPage=totalPages;
+  var pageData=filtered.slice((currentPage-1)*PER_PAGE,currentPage*PER_PAGE);
+  document.getElementById("select-all").checked=pageData.length>0&&pageData.every(function(a){return selected.has(a._id);});
+  var tbody=document.getElementById("table-body");
+  if(filtered.length===0){tbody.innerHTML='<tr class="empty-row"><td colspan="7">No applications found. Add your first application!</td></tr>';}
+  else{
+    tbody.innerHTML=pageData.map(function(app){
+      return '<tr class="'+(app.isRelevant==="no"?"muted ":"")+(selected.has(app._id)?"selected":"")+'">'+
+        '<td><input type="checkbox"'+(selected.has(app._id)?' checked':'')+' onchange="toggleOne(\''+app._id+'\')" /></td>'+
+        '<td>'+fmtDate(app.date)+'</td>'+
+        '<td class="bold">'+escHtml(app.company)+'</td>'+
+        '<td>'+escHtml(app.role)+'</td>'+
+        '<td><span class="badge '+(app.isRelevant==="yes"?"badge-yes":"badge-no")+'">'+(app.isRelevant==="yes"?"Yes":"No")+'</span></td>'+
+        '<td>'+fmtDT(app.interviewDate)+'</td>'+
+        '<td><button class="action-btn" onclick="openEditModal(\''+app._id+'\')" title="Edit">&#9998;</button>'+
+        '<button class="action-btn del" onclick="confirmDelete([\''+app._id+'\'])" title="Delete">&#10005;</button></td>'+
+        '</tr>';
+    }).join("");
+  }
+  var info=document.getElementById("pagination-info");
+  info.textContent=filtered.length===0?"":'Showing '+(((currentPage-1)*PER_PAGE)+1)+'–'+Math.min(currentPage*PER_PAGE,filtered.length)+' of '+filtered.length;
+  var pbtns=document.getElementById("pagination-btns"),phtml='<button class="page-btn" onclick="goPage('+(currentPage-1)+')" '+(currentPage===1?"disabled":"")+'>&#8592;</button>';
+  for(var p=1;p<=totalPages;p++) phtml+='<button class="page-btn'+(p===currentPage?" active":"")+'" onclick="goPage('+p+')">' +p+'</button>';
+  pbtns.innerHTML=phtml+'<button class="page-btn" onclick="goPage('+(currentPage+1)+')" '+(currentPage===totalPages?"disabled":"")+'>&#8594;</button>';
+  document.getElementById("bulk-delete-btn").style.display=selected.size>0?"block":"none";
+  document.getElementById("sel-count").textContent=selected.size;
+  updateFilterCounts();
+  document.getElementById("header-sub").textContent=apps.length+" total applications tracked";
+  updateBanner();
+}
+function goPage(p){currentPage=p;renderTable();}
+
+function toggleAll(){
+  var pageData=getFiltered().slice((currentPage-1)*PER_PAGE,currentPage*PER_PAGE);
+  var allOn=pageData.every(function(a){return selected.has(a._id);});
+  if(allOn){pageData.forEach(function(a){selected.delete(a._id);});allRowsSelected=false;}
+  else{pageData.forEach(function(a){selected.add(a._id);});}
+  renderTable();
+}
+function toggleSelectAllRows(){
+  var filtered=getFiltered();
+  if(!allRowsSelected){filtered.forEach(function(a){selected.add(a._id);});allRowsSelected=true;}
+  else{selected.clear();allRowsSelected=false;}
+  renderTable();
+}
+function toggleOne(id){selected.has(id)?selected.delete(id):selected.add(id);allRowsSelected=false;renderTable();}
+function updateBanner(){
+  var filtered=getFiltered(),pageData=filtered.slice((currentPage-1)*PER_PAGE,currentPage*PER_PAGE);
+  var banner=document.getElementById("select-all-banner");
+  var allOnPage=pageData.length>0&&pageData.every(function(a){return selected.has(a._id);});
+  if(allOnPage&&filtered.length>pageData.length){
+    banner.style.display="block";
+    if(allRowsSelected){document.getElementById("banner-msg").innerHTML='All <span>'+filtered.length+'</span> applications are selected.';document.getElementById("banner-btn").textContent="Clear selection";}
+    else{document.getElementById("banner-msg").innerHTML=pageData.length+' applications on this page are selected.';document.getElementById("banner-btn").textContent="Select all "+filtered.length+" applications";}
+  }else{banner.style.display="none";if(!allOnPage)allRowsSelected=false;}
+}
+
+// ── Date helpers ───────────────────────────────────────────────────────────
+// stored as YYYY-MM-DD, displayed/entered as DD/MM/YYYY
+function toDisplay(iso){ // "2026-03-17" → "17/03/2026"
+  if(!iso) return "";
+  var p=iso.split("-");
+  if(p.length===3) return p[2]+"/"+p[1]+"/"+p[0];
+  return iso;
+}
+function toISO(display){ // "17/03/2026" → "2026-03-17"
+  if(!display) return "";
+  var p=display.split("/");
+  if(p.length===3) return p[2]+"-"+p[1]+"-"+p[0];
+  return display;
+}
+function toDisplayDT(iso){ // "2026-03-17T10:00" → "17/03/2026 10:00"
+  if(!iso) return "";
+  var parts=iso.split("T");
+  return toDisplay(parts[0])+(parts[1]?" "+parts[1]:"");
+}
+function toISODT(display){ // "17/03/2026 10:00" → "2026-03-17T10:00"
+  if(!display) return "";
+  var parts=display.split(" ");
+  return toISO(parts[0])+(parts[1]?"T"+parts[1]:"");
+}
+
+function openAddModal(){
+  editingId=null;
+  document.getElementById("form-title").textContent="Add Application";
+  document.getElementById("form-submit-btn").textContent="Add Application";
+  // Pre-fill today's date
+  var today=new Date();
+  var dd=String(today.getDate()).padStart(2,"0");
+  var mm=String(today.getMonth()+1).padStart(2,"0");
+  var yyyy=today.getFullYear();
+  document.getElementById("f-date").value=dd+"/"+mm+"/"+yyyy;
+  document.getElementById("f-company").value="";
+  document.getElementById("f-role").value="";
+  document.getElementById("f-link").value="";
+  document.getElementById("f-interview").value="";
+  document.getElementById("f-notes").value="";
+  document.getElementById("f-relevant").value="yes";
+  document.getElementById("form-overlay").classList.remove("hidden");
+}
+function openEditModal(id){
+  var app=apps.find(function(a){return a._id===id;});
+  if(!app) return;
+  editingId=id;
+  document.getElementById("form-title").textContent="Edit Application";
+  document.getElementById("form-submit-btn").textContent="Save Changes";
+  document.getElementById("f-date").value=toDisplay(app.date)||"";
+  document.getElementById("f-company").value=app.company||"";
+  document.getElementById("f-role").value=app.role||"";
+  document.getElementById("f-link").value=app.link||"";
+  document.getElementById("f-relevant").value=app.isRelevant||"yes";
+  document.getElementById("f-interview").value=toDisplayDT(app.interviewDate)||"";
+  document.getElementById("f-notes").value=app.notes||"";
+  document.getElementById("form-overlay").classList.remove("hidden");
+}
+async function submitForm(){
+  var dateRaw=document.getElementById("f-date").value.trim();
+  var company=document.getElementById("f-company").value.trim();
+  var role=document.getElementById("f-role").value.trim();
+  if(!dateRaw||!company||!role){showToast("Please fill in all required fields.","error");return;}
+  var dateISO=toISO(dateRaw);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(dateISO)){showToast("Date must be DD/MM/YYYY","error");return;}
+  var interviewRaw=document.getElementById("f-interview").value.trim();
+  var entry={
+    date:dateISO,company:company,role:role,
+    link:document.getElementById("f-link").value.trim(),
+    isRelevant:document.getElementById("f-relevant").value,
+    interviewDate:toISODT(interviewRaw),
+    notes:document.getElementById("f-notes").value.trim()
+  };
+  setSyncStatus("syncing");
+  try{
+    if(editingId===null){await window._fsAdd(window._colRef,entry);showToast("Application added!");}
+    else{await window._fsUpdate(window._fsDoc(window._db,"applications",editingId),entry);showToast("Application updated!");}
+  }catch(e){showToast("Error saving: "+e.message,"error");setSyncStatus("error");}
+  closeFormModal();
+}
+function closeFormModal(e){if(e&&e.target!==document.getElementById("form-overlay"))return;document.getElementById("form-overlay").classList.add("hidden");}
+
+function confirmDelete(ids){deleteIds=ids;document.getElementById("del-msg").innerHTML='Are you sure you want to delete <strong>'+ids.length+'</strong> application'+(ids.length>1?"s":"")+'? This action cannot be undone.';document.getElementById("del-overlay").classList.remove("hidden");}
+function confirmBulkDelete(){confirmDelete([...selected]);}
+function closeDelModal(e){if(e&&e.target!==document.getElementById("del-overlay"))return;document.getElementById("del-overlay").classList.add("hidden");}
+async function doDelete(){
+  setSyncStatus("syncing");
+  try{
+    await Promise.all(deleteIds.map(function(id){return window._fsDelete(window._fsDoc(window._db,"applications",id));}));
+    selected=new Set([...selected].filter(function(id){return!deleteIds.includes(id);}));
+    showToast("Deleted "+deleteIds.length+" application"+(deleteIds.length>1?"s":".")+".","error");
+  }catch(e){showToast("Error deleting.","error");setSyncStatus("error");}
+  document.getElementById("del-overlay").classList.add("hidden");
+}
+
+var toastTimer;
+function showToast(msg,type){
+  type=type||"success";
+  var t=document.getElementById("toast");
+  t.textContent=msg;t.className="show "+type;
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){t.className="";},3000);
+}
+</script>
+</body>
+</html>
